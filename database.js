@@ -33,6 +33,10 @@ const getUsers = function(callback) {
   query("SELECT * FROM users", [], callback)
 }
 
+const getUserbyID = function(callback) {
+  query("SELECT * FROM users WHERE id = $1", [userID], callback)
+}
+
 module.exports = {
   getAlbums,
   getAlbumsByID,

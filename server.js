@@ -20,11 +20,11 @@ app.use(passport.session())
 app.use(passport.session({ secret: 'kitties' }))
 
 app.get('/', (request, response) => {
-  database.getAlbums((error, albums) => {
+  database.getUsers((error, users) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      response.render('index', { albums: albums })
+      response.render('splash', { users: users })
     }
   })
 })
@@ -81,6 +81,11 @@ app.post('/signup', passport.authenticate('local-signup', {
      successRedirect : '/user',
      failureRedirect : '/signup'
  }));
+
+ app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/user',
+        failureRedirect : '/signup'
+    }));
 
 function isLoggedIn(request, response, next) {
   if(request.isAuthenticated())

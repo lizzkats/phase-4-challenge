@@ -1,5 +1,5 @@
 const LocalStrategy  = require('passport-local').Strategy;
-const user = require('./database.js')
+const User = require('./database.js')
 
 module.exports = function(passport) {
 
@@ -8,7 +8,7 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        User.getUserbyID(id, function(err, user) {
             done(err, user);
         });
     });
@@ -22,7 +22,7 @@ module.exports = function(passport) {
 
         process.nextTick(function() {
 
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+        User.getUsers({ 'local.email' :  email }, function(err, user) {
             if (err)
                 return done(err);
             if (user) {
@@ -38,11 +38,7 @@ module.exports = function(passport) {
                     return done(null, newUser);
                 });
             }
-
         });
-
         });
-
     }));
-
 };

@@ -40,5 +40,6 @@ const getUserbyID = function(callback) {
 module.exports = {
   getAlbums,
   getAlbumsByID,
-  getUsers
+  getUsers,
+  getUserbyID
 }

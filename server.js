@@ -73,6 +73,11 @@ app.get('/albums/:albumID', (request, response) => {
   })
 })
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.use((request, response) => {
   response.status(404).render('not_found')
 })

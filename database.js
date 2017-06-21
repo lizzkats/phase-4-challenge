@@ -37,9 +37,15 @@ const getUserbyID = function(callback) {
   query("SELECT * FROM users WHERE id = $1", [userID], callback)
 }
 
+const addUser = function(callback, username, password) {
+  query(`INSERT INTO users (username, password)
+VALUES (${username} , ${password})`, [], callback )
+}
+
 module.exports = {
   getAlbums,
   getAlbumsByID,
   getUsers,
-  getUserbyID
+  getUserbyID,
+  addUser
 }

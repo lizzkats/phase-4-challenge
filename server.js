@@ -51,11 +51,11 @@ app.get('/signup', (request, response) => {
 })
 
 app.get('/user', (request, response) => {
-  database.getUsers((error, users) => {
+  database.getUsers((error, user) => {
     if(error){
       response.status(500).render('error', {error: error })
     } else {
-      response.render('user', { users: users })
+      response.render('user', { user: user })
     }
   })
 })
@@ -84,13 +84,15 @@ app.use((request, response) => {
 
 app.post('/signup', passport.authenticate('local-signup', {
      successRedirect : '/user',
-     failureRedirect : '/signup'
- }));
+     failureRedirect : '/signup',
+     failureFlash: true
+ }))
 
  app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/user',
-        failureRedirect : '/signup'
-    }));
+        failureRedirect : '/signup',
+        failureFlash: true
+    }))
 
 function isLoggedIn(request, response, next) {
   if(request.isAuthenticated())
